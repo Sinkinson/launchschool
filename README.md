@@ -1,1 +1,1 @@
-Repo contains all lesson exercises and small problems for RB101
+Repo contains all lesson exercises and problem sets for Launch School 
