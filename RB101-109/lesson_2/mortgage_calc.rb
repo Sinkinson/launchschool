@@ -107,7 +107,7 @@ def get_loan_duration
     print_prompt("Month(s): ")
     loan_term_months = gets.chomp
     if loan_term_years == '0' && loan_term_months == '0'
-      put_prompt "Invalid input, you cannot enter 0 for both years and months"
+      put_prompt(MESSAGES['zero_error'])
       next
     end
     return [loan_term_years, loan_term_months] \
