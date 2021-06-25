@@ -117,7 +117,7 @@ def get_loan_duration
   end
 end
 
-def monthly_payment(loan_amount, apr, loan_term_years, loan_term_mont)
+def calc_monthly_payment(loan_amount, apr, loan_term_years, loan_term_mont)
   total_loan_term = (loan_term_years.to_i * 12) + loan_term_mont.to_i
   monthly_interest = (apr.to_f / 100) / 12
   if apr == '0'
@@ -160,7 +160,7 @@ loop do
   loan_term_years, loan_term_months = get_loan_duration
   clear
   monthly_payment, total_loan_term = \
-    monthly_payment(loan_amount, apr, loan_term_years, loan_term_months)
+    calc_monthly_payment(loan_amount, apr, loan_term_years, loan_term_months)
   total_amount_owed, total_interest = \
     calculate_results(monthly_payment, total_loan_term, loan_amount)
   calculating_message
