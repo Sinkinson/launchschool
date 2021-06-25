@@ -48,8 +48,8 @@ def calculating_message
   put_prompt("Calculating")
   string = '.'
   4.times do |num|
-  sleep (0.7)
-  puts string * (num + 1)
+    sleep(0.7)
+    puts string * (num + 1)
   end
 end
 
@@ -86,10 +86,12 @@ def get_name
   end
 end
 
-def display_results(monthly_payment, total_loan_term, total_amount_owed, total_interest)
-  put_prompt("Payment every month: $#{format('%.2f', monthly_payment)}")
-  put_prompt("Total of #{total_loan_term} payments: $#{format('%.2f', total_amount_owed)}")
-  put_prompt("Total interest: $#{format('%.2f', total_interest)}")
+def display_results(monthly_p, total_loan_term, total_amount_owed, total_int)
+  put_prompt("Payment every month: $#{format('%.2f', monthly_p)}")
+  total_term_string = "Total of #{total_loan_term} payments: " \
+                      "$#{format('%.2f', total_amount_owed)}"
+  put_prompt(total_term_string)
+  put_prompt("Total interest: $#{format('%.2f', total_int)}")
   puts ''
 end
 
@@ -108,14 +110,15 @@ def get_loan_duration
       put_prompt "Invalid input, you cannot enter 0 for both years and months"
       next
     end
-    return [loan_term_years, loan_term_months] if valid_loan_duration?(loan_term_years) \
+    return [loan_term_years, loan_term_months] \
+    if valid_loan_duration?(loan_term_years) \
     && valid_loan_duration?(loan_term_months)
     put_prompt(MESSAGES['again'])
   end
 end
 
-def calculate_results(loan_amount, apr, loan_term_years, loan_term_months)
-  total_loan_term = (loan_term_years.to_i * 12) + loan_term_months.to_i
+def monthly_payment(loan_amount, apr, loan_term_years, loan_term_mont)
+  total_loan_term = (loan_term_years.to_i * 12) + loan_term_mont.to_i
   monthly_interest = (apr.to_f / 100) / 12
   if apr == '0'
     monthly_payment = loan_amount.to_f / total_loan_term
@@ -124,20 +127,21 @@ def calculate_results(loan_amount, apr, loan_term_years, loan_term_months)
                       (monthly_interest / (1 - (1 + monthly_interest) \
                       **(-total_loan_term)))
   end
+  [monthly_payment, total_loan_term]
+end
+
+def calculate_results(monthly_payment, total_loan_term, loan_amount)
   total_amount_owed = monthly_payment * total_loan_term
   total_interest = total_amount_owed - loan_amount.to_f
-  [monthly_payment, total_amount_owed, total_interest, total_loan_term]
+  [total_amount_owed, total_interest]
 end
 
 def another_calculation
-  loop do 
-    put_prompt(MESSAGES['another'])
+  put_prompt(MESSAGES['another'])
+  loop do
     answer = gets.chomp.downcase
-    if ['y', 'yes'].include?(answer)
-      return true
-    elsif ['n', 'no'].include?(answer)
-      return false
-    end
+    return true if ['y', 'yes'].include?(answer)
+    return false if ['n', 'no'].include?(answer)
     put_prompt(MESSAGES['again'])
   end
 end
@@ -155,11 +159,14 @@ loop do
   duration_message
   loan_term_years, loan_term_months = get_loan_duration
   clear
-  monthly_payment, total_amount_owed, total_interest, total_loan_term = \
-  calculate_results(loan_amount, apr, loan_term_years, loan_term_months)
+  monthly_payment, total_loan_term = \
+    monthly_payment(loan_amount, apr, loan_term_years, loan_term_months)
+  total_amount_owed, total_interest = \
+    calculate_results(monthly_payment, total_loan_term, loan_amount)
   calculating_message
   clear
-  display_results(monthly_payment, total_loan_term, total_amount_owed, total_interest)
+  display_results(monthly_payment, total_loan_term, \
+                  total_amount_owed, total_interest)
   break unless another_calculation
   clear
 end

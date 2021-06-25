@@ -27,6 +27,7 @@ def display_results(player, computer)
   else
     prompt("Tie!")
   end
+  sleep(1)
 end
 
 def leader_board(player, computer, leader)
@@ -58,6 +59,7 @@ def champion(leader)
   elsif leader[:computer] == 3
     prompt("The computer was the first to 3, tough luck")
   end
+  sleep(1)
 end
 
 def wipe_scores(leader)
@@ -65,14 +67,63 @@ def wipe_scores(leader)
   leader[:computer] = 0
 end
 
-leader = { player: 0, computer: 0 }
+def welcome_message(rules)
+  puts "Welcome to rock, paper, scissors, lizard, spock"
+  puts "-----------------------------------------------"
+  puts rules
+  puts "The first to 3 is the champion"
+  puts "-----------------------------------------------"
+end
 
-clear
+def game_starter
+  prompt("Press enter key to begin")
+  loop do
+    answer = gets.chomp
+    break if answer == ''
+    prompt("Just press enter")
+  end
+end
 
-puts "Welcome to rock, paper, scissors, lizard, spock"
-puts "-----------------------------------------------"
+def display_scoreboard(leader)
+  score_board = <<-MSG
+  Current scores
+  You: #{leader[:player]}
+  CPU: #{leader[:computer]}
+  MSG
+  puts score_board
+end
 
-info = <<-MSG
+def get_choice
+  loop do
+    prompt("Choose one: (r)ock, (p)aper, (sc)issors, (l)izard, (sp)ock")
+    choice = gets.chomp.downcase
+    clear
+    if VALID_CHOICES.include?(choice)
+      return choice
+    elsif VALID_CHOICES_2.include?(choice)
+      return alt_choice(choice)
+    else
+      prompt("That's not a valid choice")
+    end
+  end
+end
+
+def display_choices(choice, computer_choice)
+  prompt("You chose: #{choice}; computer chose: #{computer_choice}")
+  sleep(1)
+end
+
+def play_again?
+  prompt("Do you want to play again? (yes/no)")
+  loop do
+    answer = gets.chomp.downcase
+    return true if ['y', 'yes'].include?(answer)
+    return false if ['n', 'no'].include?(answer)
+    prompt("Invalid input, try again")
+  end
+end
+
+rules = <<-MSG
 These are the rules of the game
 
 scissors cuts paper covers rock crushes
@@ -81,46 +132,19 @@ decapitates lizard eats paper disproves
 spock vaporizes rock crushes scissors
 
 MSG
-puts info
-puts "The first to 3 is the champion"
-puts "-----------------------------------------------"
 
-loop do
-  prompt("Press enter key to begin")
-  answer = gets.chomp
-  break if answer == ''
-end
-
+leader = { player: 0, computer: 0 }
+clear
+welcome_message(rules)
+game_starter
 clear
 
 loop do
   loop do
-    score_board = <<-MSG
-    Current scores
-    You: #{leader[:player]}
-    CPU: #{leader[:computer]}
-    MSG
-    puts score_board
-
-    choice = ''
+    display_scoreboard(leader)
     computer_choice = VALID_CHOICES.sample
-
-    loop do
-      prompt("Choose one: (r)ock, (p)aper, (sc)issors, (l)izard, (sp)ock")
-      choice = gets.chomp.downcase
-      clear
-      if VALID_CHOICES.include?(choice)
-        break
-      elsif VALID_CHOICES_2.include?(choice)
-        choice = alt_choice(choice)
-        break
-      else
-        prompt("That's not a valid choice")
-      end
-    end
-
-    prompt("You chose: #{choice}; computer chose: #{computer_choice}")
-    sleep(1)
+    choice = get_choice
+    display_choices(choice, computer_choice)
     display_results(choice, computer_choice)
     leader_board(choice, computer_choice, leader)
     break if leader[:player] == 3 || leader[:computer] == 3
@@ -128,15 +152,9 @@ loop do
 
   clear
   champion(leader)
-  sleep(1)
-  prompt("Do you want to play again? (yes/no)")
-  answer = gets.chomp
-  if answer.downcase.start_with?("y")
-    wipe_scores(leader)
-    clear
-  else
-    break
-  end
+  break unless play_again?
+  wipe_scores(leader)
+  clear
 end
 
 prompt("Thanks for playing")
