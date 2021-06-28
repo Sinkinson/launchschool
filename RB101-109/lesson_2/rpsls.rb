@@ -1,11 +1,22 @@
-VALID_CHOICES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
-VALID_CHOICES_2 = ['r', 'p', 'sc', 'l', 'sp']
+MAX_WINS = 3
 
-COMBOS = { 'rock' => ['lizard', 'scissors'],
-           'paper' => ['rock', 'spock'],
-           'scissors' => ['paper', 'lizard'],
-           'lizard' => ['spock', 'paper'],
-           'spock' => ['scissors', 'rock'] }
+COMBOS = {
+ 'rock' => { shorthand: 'r', beats: ['scissors', 'lizard'] },
+ 'paper' => { shorthand: 'p', beats: ['rock', 'spock'] },
+ 'scissors' => { shorthand: 'sc', beats: ['paper', 'lizard'] },
+ 'lizard' => { shorthand: 'l', beats: ['spock', 'paper'] },
+ 'spock' => { shorthand: 'sp', beats: ['scissors', 'rock'] }
+}
+
+RULES = <<-MSG
+These are the rules of the game
+
+scissors cuts paper covers rock crushes
+lizard posions spock smashes scissors
+decapitates lizard eats paper disproves
+spock vaporizes rock crushes scissors
+
+MSG
 
 def clear
   system('clear')
@@ -15,14 +26,14 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-def winner(first, second)
-  COMBOS[first].include?(second)
+def winner?(first, second)
+  COMBOS[first][:beats].include?(second)
 end
 
 def display_results(player, computer)
-  if winner(player, computer)
+  if winner?(player, computer)
     prompt("You win!")
-  elsif winner(computer, player)
+  elsif winner?(computer, player)
     prompt("Computer wins!")
   else
     prompt("Tie!")
@@ -30,10 +41,10 @@ def display_results(player, computer)
   sleep(1)
 end
 
-def leader_board(player, computer, leader)
-  if winner(player, computer)
+def update_score(player, computer, leader)
+  if winner?(player, computer)
     leader[:player] += 1
-  elsif winner(computer, player)
+  elsif winner?(computer, player)
     leader[:computer] += 1
   end
 end
@@ -53,11 +64,11 @@ def alt_choice(choice)
   end
 end
 
-def champion(leader)
-  if leader[:player] == 3
-    prompt("You won 3 rounds, congrats you are the champion")
-  elsif leader[:computer] == 3
-    prompt("The computer was the first to 3, tough luck")
+def display_champion(leader)
+  if leader[:player] == MAX_WINS
+    prompt("You won #{MAX_WINS} rounds, congrats you are the champion")
+  elsif leader[:computer] == MAX_WINS
+    prompt("The computer was the first to #{MAX_WINS}, tough luck")
   end
   sleep(1)
 end
@@ -67,11 +78,11 @@ def wipe_scores(leader)
   leader[:computer] = 0
 end
 
-def welcome_message(rules)
+def welcome_message
   puts "Welcome to rock, paper, scissors, lizard, spock"
   puts "-----------------------------------------------"
-  puts rules
-  puts "The first to 3 is the champion"
+  puts RULES
+  puts "The first to #{MAX_WINS} is the champion"
   puts "-----------------------------------------------"
 end
 
@@ -98,9 +109,9 @@ def get_choice
     prompt("Choose one: (r)ock, (p)aper, (sc)issors, (l)izard, (sp)ock")
     choice = gets.chomp.downcase
     clear
-    if VALID_CHOICES.include?(choice)
+    if COMBOS.keys.include?(choice)
       return choice
-    elsif VALID_CHOICES_2.include?(choice)
+    elsif COMBOS.map { |k, v| v.fetch(:shorthand) }.include?(choice)
       return alt_choice(choice)
     else
       prompt("That's not a valid choice")
@@ -123,35 +134,25 @@ def play_again?
   end
 end
 
-rules = <<-MSG
-These are the rules of the game
-
-scissors cuts paper covers rock crushes
-lizard posions spock smashes scissors
-decapitates lizard eats paper disproves
-spock vaporizes rock crushes scissors
-
-MSG
-
 leader = { player: 0, computer: 0 }
 clear
-welcome_message(rules)
+welcome_message
 game_starter
 clear
 
 loop do
   loop do
     display_scoreboard(leader)
-    computer_choice = VALID_CHOICES.sample
+    computer_choice = COMBOS.keys.sample
     choice = get_choice
     display_choices(choice, computer_choice)
     display_results(choice, computer_choice)
-    leader_board(choice, computer_choice, leader)
-    break if leader[:player] == 3 || leader[:computer] == 3
+    update_score(choice, computer_choice, leader)
+    break if leader[:player] == MAX_WINS || leader[:computer] == MAX_WINS
   end
 
   clear
-  champion(leader)
+  display_champion(leader)
   break unless play_again?
   wipe_scores(leader)
   clear
