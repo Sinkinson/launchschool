@@ -30,3 +30,14 @@ p common_chars(["bella", "label", "roller"]) == ["e", "l", "l"]
 p common_chars(["cool", "lock", "cook"]) == ["c", "o"]
 p common_chars(["hello", "goodbye", "booya", "random"]) == ["o"]
 p common_chars(["aabbaaaa", "ccdddddd", "eeffee", "ggrrrrr", "yyyzzz"]) == []
+
+# Example with not mutating the array
+
+def common_chars(array)
+  array = array.map { |word| word.dup }
+  chars = array.shift.chars
+
+  chars.select do |char|
+    array.all? {|word| word.sub!("#{char}", "") }
+  end
+end
