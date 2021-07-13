@@ -7,16 +7,13 @@ def substring_test(string_1, string_2)
   string_2.downcase!
   short_string = [string_1, string_2].sort_by(&:size).first
   
-  results = []
-  max_iteration = short_string.size
-
-  (0..(max_iteration - 1)).each do |index1|
-    (2..(max_iteration - 1)).each do |index2|
-      results << short_string[index1, index2]
+  substrings = []
+  (0..short_string.size).each do |start|
+    (2..short_string.size - start).each do |length|
+      substrings << short_string[start, length]
     end
   end
-  results.delete_if { |string| string.size < 2 }
-  results.each do |substring|
+  substrings.each do |substring|
     return true if string_1.include?(substring) && string_2.include?(substring)
   end
   false
