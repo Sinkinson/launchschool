@@ -60,3 +60,10 @@ p minimum_number([5,2])
 p minimum_number([1,1,1])
 p minimum_number([2,12,8,4,6])
 p minimum_number([50,39,49,6,17,28])
+
+# using the prime method
+require 'prime'
+
+def minimum_number(numbers)
+  Prime.find { |prime| prime >= numbers.sum } - numbers.sum
+end
