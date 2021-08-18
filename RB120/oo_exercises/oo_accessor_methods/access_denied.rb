@@ -1,8 +1,6 @@
 # Modify the following code so that the value of @phone_number can still be read
 # as on line 10, but cannot be changed as on line 12.
 
-# so we want to be able to read the mobile number but not change it
-
 class Person
   attr_accessor :phone_number
 
