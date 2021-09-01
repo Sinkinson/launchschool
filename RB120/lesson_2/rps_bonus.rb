@@ -114,11 +114,12 @@ spock vaporizes rock crushes scissors
 MSG
 
 class RPSGame
-  attr_accessor :human, :computer
+  attr_accessor :human, :computer, :game_history
 
   def initialize
     @human = Human.new
     @computer = Computer.new
+    @game_history = Game_history.new
   end
 
   def clear
@@ -147,6 +148,7 @@ class RPSGame
   def display_moves
     puts "\n#{human.name} chose: #{human.move}"
     puts "#{computer.name} chose: #{computer.move}"
+    game_history.add_game(human.move, computer.move)
     puts
     sleep(1.4)
   end
@@ -220,11 +222,31 @@ class RPSGame
         display_winner
         break if game_won?
         display_score('CURRENT')
+        game_history.display_games
       end
       display_game_winner('FINAL')
       break unless play_again?
     end
     display_goodbye_message
+  end
+end
+
+class Game_history
+  def initialize
+    @history = []
+  end
+
+  def add_game(human_move, comp_move)
+    @history << [human_move.name, comp_move.name]
+  end
+
+  def display_games
+    @history.each_with_index do |moves, idx|
+      puts "Round #{idx + 1}"
+      puts "You chose: #{moves.first}"
+      puts "Computer chose: #{moves.last}"
+      puts
+    end
   end
 end
 
