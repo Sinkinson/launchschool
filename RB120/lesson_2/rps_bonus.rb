@@ -1,7 +1,6 @@
 class Move
   VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
 
-  testing 1234
   def initialize(value)
     @value = value
   end
@@ -18,10 +17,20 @@ class Move
     @value == 'paper'
   end
 
+  def lizard?
+    @value == 'lizard'
+  end
+
+  def spock?
+    @value == 'spock'
+  end
+
   def >(other_move)
-    (rock? && other_move.scissors?) ||
-      (paper? && other_move.rock?) ||
-      (scissors? && other_move.paper?)
+    (rock? && (other_move.scissors? || other_move.lizard?)) ||
+      (paper? && (other_move.rock? || other_move.spock?)) ||
+      (scissors? && (other_move.paper? || other_move.lizard?)) ||
+      (lizard? && (other_move.spock? || other_move.paper?)) ||
+      (spock? && (other_move.scissors? || other_move.rock?))
   end
 
   def to_s
@@ -74,7 +83,7 @@ class Computer < Player
 end
 
 RULES = <<-MSG
-These are the rules of the game
+These are the rules of the game:
 
 scissors cuts paper covers rock crushes
 lizard posions spock smashes scissors
@@ -102,7 +111,7 @@ class RPSGame
   end
 
   def display_goodbye_message
-    puts "Thanks for playing rock, paper, scissors. Goodbye"
+    puts "Thanks for playing rock, paper, scissors, lizard, spock."
   end
 
   def display_score(str)
@@ -171,7 +180,7 @@ class RPSGame
       puts
       display_score(str)
     else
-      puts "HARD LUCK, #{computer.name} WON"
+      puts "Hard luck, #{computer.name} won"
       puts
       display_score(str)
     end
@@ -198,3 +207,4 @@ class RPSGame
 end
 
 RPSGame.new.play
+
