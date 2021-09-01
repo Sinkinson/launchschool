@@ -1,5 +1,5 @@
 class Move
-  VALUES = ['rock', 'paper', 'scissors']
+  VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
 
   def initialize(value)
     @value = value
@@ -29,10 +29,11 @@ class Move
 end
 
 class Player
-  attr_accessor :move, :name
+  attr_accessor :move, :name, :score
 
   def initialize
     set_name
+    @score = 0
   end
 end
 
@@ -51,12 +52,13 @@ class Human < Player
   def choose
     choice = nil
     loop do
-      puts "Please choose rock, paper, or scissors"
+      puts "\nPlease choose rock, paper, scissors, lizard, or spock"
       choice = gets.chomp
       break if Move::VALUES.include?(choice)
       puts "Sorry, invalid choice"
     end
     self.move = Move.new(choice)
+    sleep(1)
   end
 end
 
@@ -70,6 +72,15 @@ class Computer < Player
   end
 end
 
+RULES = <<-MSG
+These are the rules of the game
+
+scissors cuts paper covers rock crushes
+lizard posions spock smashes scissors
+decapitates lizard eats paper disproves
+spock vaporizes rock crushes scissors
+MSG
+
 class RPSGame
   attr_accessor :human, :computer
 
@@ -78,27 +89,48 @@ class RPSGame
     @computer = Computer.new
   end
 
+  def clear
+    system('clear')
+  end
+
   def display_welcome_message
-    puts "Welcome to rock, paper, scissors!"
+    puts "\nHi #{human.name}!"
+    sleep(1.3)
+    puts "Welcome to rock, paper, scissors, lizard, spock."
+    puts RULES
   end
 
   def display_goodbye_message
-    puts "Thanks for playing rock, paper, scissors. Goodbye!"
+    puts "Thanks for playing rock, paper, scissors. Goodbye"
+  end
+
+  def display_score(str)
+    puts "\n--| #{str} SCORE |--"
+    puts "\n#{human.name}: #{human.score}"
+    puts "#{computer.name}: #{computer.score}"
+    sleep(3)
+    clear
   end
 
   def display_moves
-    puts "#{human.name} chose #{human.move}"
-    puts "#{computer.name} chose #{computer.move}"
+    puts "\n#{human.name} chose: #{human.move}"
+    puts "#{computer.name} chose: #{computer.move}"
+    puts
+    sleep(1.4)
   end
 
   def display_winner
     if human.move > computer.move
       puts "#{human.name} won"
+      human.score += 1
     elsif computer.move > human.move
       puts "#{computer.name} won"
+      computer.score += 1
     else
       puts "It's a tie"
     end
+    sleep(2)
+    clear
   end
 
   def play_again?
@@ -113,13 +145,51 @@ class RPSGame
     return false if answer.downcase == 'n'
   end
 
+  def game_starter
+    puts "\nPress enter key when you are ready to start"
+    loop do
+      answer = gets.chomp
+      break if answer == ''
+      puts "Just press enter"
+    end
+    clear
+  end
+
+  def game_won?
+    return true if human.score == 3 || computer.score == 3
+  end
+
+  def wipe_scores
+    human.score = 0
+    computer.score = 0
+  end
+
+  def display_game_winner(str)
+    if human.score == 3
+      puts "** YOU WON **"
+      puts
+      display_score(str)
+    else
+      puts "HARD LUCK, #{computer.name} WON"
+      puts
+      display_score(str)
+    end
+  end
+
   def play
     display_welcome_message
+    game_starter
     loop do
-      human.choose
-      computer.choose
-      display_moves
-      display_winner
+      wipe_scores
+      loop do
+        human.choose
+        computer.choose
+        display_moves
+        display_winner
+        break if game_won?
+        display_score('CURRENT')
+      end
+      display_game_winner('FINAL')
       break unless play_again?
     end
     display_goodbye_message
