@@ -1,6 +1,7 @@
 class Move
   VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
 
+  testing 1234
   def initialize(value)
     @value = value
   end
