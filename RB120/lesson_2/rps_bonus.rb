@@ -1,40 +1,48 @@
 class Move
   VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
-
-  def initialize(value)
-    @value = value
-  end
-
-  def scissors?
-    @value == 'scissors'
-  end
-
-  def rock?
-    @value == 'rock'
-  end
-
-  def paper?
-    @value == 'paper'
-  end
-
-  def lizard?
-    @value == 'lizard'
-  end
-
-  def spock?
-    @value == 'spock'
-  end
+  attr_accessor :name, :beats
 
   def >(other_move)
-    (rock? && (other_move.scissors? || other_move.lizard?)) ||
-      (paper? && (other_move.rock? || other_move.spock?)) ||
-      (scissors? && (other_move.paper? || other_move.lizard?)) ||
-      (lizard? && (other_move.spock? || other_move.paper?)) ||
-      (spock? && (other_move.scissors? || other_move.rock?))
+    beats.include?(other_move.name)
   end
 
   def to_s
-    @value
+    @name
+  end
+end
+
+class Rock < Move
+  def initialize
+    @name = 'rock'
+    @beats = ['scissors', 'lizard']
+  end
+end
+
+class Paper < Move
+  def initialize
+    @name = 'paper'
+    @beats = ['rock', 'spock']
+  end
+end
+
+class Scissors < Move
+  def initialize
+    @name = 'scissors'
+    @beats = ['paper', 'lizard']
+  end
+end
+
+class Lizard < Move
+  def initialize
+    @name = 'lizard'
+    @beats = ['spock', 'paper']
+  end
+end
+
+class Spock < Move
+  def initialize
+    @name = 'spock'
+    @beats = ['scissors', 'rock']
   end
 end
 
@@ -67,8 +75,18 @@ class Human < Player
       break if Move::VALUES.include?(choice)
       puts "Sorry, invalid choice"
     end
-    self.move = Move.new(choice)
+    self.move = class_chooser(choice)
     sleep(1)
+  end
+end
+
+def class_chooser(choice)
+  case choice
+  when 'rock' then Rock.new
+  when 'paper' then Paper.new
+  when 'scissors' then Scissors.new
+  when 'lizard' then Lizard.new
+  when 'spock' then Spock.new
   end
 end
 
@@ -78,7 +96,11 @@ class Computer < Player
   end
 
   def choose
-    self.move = Move.new(Move::VALUES.sample)
+    self.move = [Rock.new, 
+                 Paper.new, 
+                 Scissors.new,
+                 Lizard.new,
+                 Spock.new].sample
   end
 end
 
@@ -207,4 +229,3 @@ class RPSGame
 end
 
 RPSGame.new.play
-
