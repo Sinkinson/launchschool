@@ -1,5 +1,10 @@
 class Move
-  MOVES = {'r' => 'rock', 'p' => 'paper', 's' => 'scissors', 'l' => 'lizard', 'sp' => 'spock'}
+  MOVES = { 'r' => 'rock',
+            'p' => 'paper',
+            's' => 'scissors',
+            'l' => 'lizard',
+            'sp' => 'spock' }
+
   attr_accessor :name, :beats
 
   def >(other_move)
@@ -55,7 +60,9 @@ class Player
   end
 
   def assign_choice(answer)
-    answer.size <= 2 ?  Move::MOVES[answer] : answer
+    choice = answer.size <= 2 ? Move::MOVES[answer] : answer
+    choice_const = Object.const_get(choice.capitalize)
+    choice_const.new
   end
 end
 
@@ -79,16 +86,14 @@ class Human < Player
       break if (Move::MOVES.keys + Move::MOVES.values).include?(answer)
       puts "Sorry, invalid choice"
     end
-    choice = assign_choice(answer)
-    choice_const = Object.const_get(choice.capitalize)
-    self.move = choice_const.new
+    self.move = assign_choice(answer)
     sleep(1)
   end
 end
 
 class Computer < Player
   attr_accessor :cpu, :options
-  
+
   def set_name
     @cpu = [R2D2.new, Hal.new, Chappie.new, Sonny.new].sample
     self.name = cpu.name
@@ -144,7 +149,7 @@ class RPSGame
   def initialize
     @human = Human.new
     @computer = Computer.new
-    @game_history = Game_history.new
+    @game_history = GameHistory.new
   end
 
   def clear
@@ -163,6 +168,8 @@ class RPSGame
   end
 
   def display_score(str)
+    sleep(2)
+    clear
     puts "\n--| #{str} SCORE |--"
     puts "\n#{human.name}: #{human.score}"
     puts "#{computer.name}: #{computer.score}"
@@ -188,8 +195,6 @@ class RPSGame
     else
       puts "It's a tie"
     end
-    sleep(2)
-    clear
   end
 
   def play_again?
@@ -224,15 +229,11 @@ class RPSGame
     game_history.record.clear
   end
 
-  def display_game_winner(str)
+  def display_game_winner
     if human.score == 3
       puts "** YOU WON **"
-      puts
-      display_score(str)
     else
       puts "Hard luck, #{computer.name} won"
-      puts
-      display_score(str)
     end
   end
 
@@ -265,14 +266,15 @@ class RPSGame
     loop do
       wipe_scores
       play_individual_game
-      display_game_winner('FINAL')
+      display_game_winner
+      display_score('FINAL')
       break unless play_again?
     end
     display_goodbye_message
   end
 end
 
-class Game_history
+class GameHistory
   attr_reader :record
 
   def initialize
