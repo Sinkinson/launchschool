@@ -1,5 +1,5 @@
 class Move
-  VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+  MOVES = {'r' => 'rock', 'p' => 'paper', 's' => 'scissors', 'l' => 'lizard', 'sp' => 'spock'}
   attr_accessor :name, :beats
 
   def >(other_move)
@@ -53,6 +53,10 @@ class Player
     set_name
     @score = 0
   end
+
+  def assign_choice(answer)
+    answer.size <= 2 ?  Move::MOVES[answer] : answer
+  end
 end
 
 class Human < Player
@@ -68,13 +72,14 @@ class Human < Player
   end
 
   def choose
-    choice = nil
+    answer = nil
     loop do
-      puts "\nPlease choose rock, paper, scissors, lizard, or spock"
-      choice = gets.chomp
-      break if Move::VALUES.include?(choice)
+      puts "\nPlease choose (r)ock, (p)aper, (s)cissors, (l)izard, or (sp)ock"
+      answer = gets.chomp
+      break if (Move::MOVES.keys + Move::MOVES.values).include?(answer)
       puts "Sorry, invalid choice"
     end
+    choice = assign_choice(answer)
     choice_const = Object.const_get(choice.capitalize)
     self.move = choice_const.new
     sleep(1)
