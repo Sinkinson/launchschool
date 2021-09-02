@@ -91,16 +91,23 @@ def class_chooser(choice)
 end
 
 class Computer < Player
+  attr_accessor :cpu, :options
+  
   def set_name
-    self.name = ['R2D2', 'Chappie', 'Sonny', 'Number 5'].sample
+    @cpu = [R2D2.new].sample
+    self.name = cpu.name
   end
 
   def choose
-    self.move = [Rock.new, 
-                 Paper.new, 
-                 Scissors.new,
-                 Lizard.new,
-                 Spock.new].sample
+    choice = cpu.options.sample
+    self.move = class_chooser(choice)
+  end
+end
+
+class R2D2 < Computer
+  def initialize
+    @name = 'R2D2'
+    @options = ['rock']
   end
 end
 
