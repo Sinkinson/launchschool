@@ -225,7 +225,7 @@ class RPSGame
   def wipe_scores
     human.score = 0
     computer.score = 0
-    game_history.history.clear
+    game_history.record.clear
   end
 
   def display_game_winner(str)
@@ -273,18 +273,18 @@ class RPSGame
 end
 
 class Game_history
-  attr_reader :history
+  attr_reader :record
 
   def initialize
-    @history = []
+    @record = []
   end
 
   def add_game(human_move, comp_move)
-    history << [human_move.name, comp_move.name]
+    record << [human_move.name, comp_move.name]
   end
 
   def display_games
-    history.each_with_index do |moves, idx|
+    record.each_with_index do |moves, idx|
       puts "\nRound #{idx + 1}"
       puts "You chose: #{moves.first}"
       puts "Computer chose: #{moves.last}"
