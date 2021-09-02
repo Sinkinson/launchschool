@@ -75,7 +75,8 @@ class Human < Player
       break if Move::VALUES.include?(choice)
       puts "Sorry, invalid choice"
     end
-    self.move = class_chooser(choice)
+    choice_const = Object.const_get(choice.capitalize)
+    self.move = choice_const.new
     sleep(1)
   end
 end
@@ -90,7 +91,8 @@ class Computer < Player
 
   def choose
     choice = cpu.options.sample
-    self.move = class_chooser(choice)
+    choice_const = Object.const_get(choice.capitalize)
+    self.move = choice_const.new
   end
 end
 
@@ -119,16 +121,6 @@ class Sonny < Computer
   def initialize
     @name = 'Sonny'
     @options = ['rock', 'paper', 'scissors', 'lizard', 'spock']
-  end
-end
-
-def class_chooser(choice)
-  case choice
-  when 'rock' then Rock.new
-  when 'paper' then Paper.new
-  when 'scissors' then Scissors.new
-  when 'lizard' then Lizard.new
-  when 'spock' then Spock.new
   end
 end
 
@@ -170,7 +162,6 @@ class RPSGame
     puts "\n#{human.name}: #{human.score}"
     puts "#{computer.name}: #{computer.score}"
     sleep(1.5)
-    # clear
   end
 
   def display_moves
@@ -219,7 +210,7 @@ class RPSGame
   end
 
   def game_won?
-    return true if human.score == 3 || computer.score == 3
+    human.score == 3 || computer.score == 3
   end
 
   def wipe_scores
@@ -251,20 +242,24 @@ class RPSGame
     game_history.display_games if answer == 'y'
   end
 
+  def play_individual_game
+    loop do
+      human.choose
+      computer.choose
+      display_moves
+      display_winner
+      break if game_won?
+      display_score('CURRENT')
+      display_game_history?
+    end
+  end
+
   def play
     display_welcome_message
     game_starter
     loop do
       wipe_scores
-      loop do
-        human.choose
-        computer.choose
-        display_moves
-        display_winner
-        break if game_won?
-        display_score('CURRENT')
-        display_game_history?
-      end
+      play_individual_game
       display_game_winner('FINAL')
       break unless play_again?
     end
