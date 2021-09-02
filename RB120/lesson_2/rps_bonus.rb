@@ -80,21 +80,11 @@ class Human < Player
   end
 end
 
-def class_chooser(choice)
-  case choice
-  when 'rock' then Rock.new
-  when 'paper' then Paper.new
-  when 'scissors' then Scissors.new
-  when 'lizard' then Lizard.new
-  when 'spock' then Spock.new
-  end
-end
-
 class Computer < Player
   attr_accessor :cpu, :options
   
   def set_name
-    @cpu = [R2D2.new].sample
+    @cpu = [R2D2.new, Hal.new, Chappie.new, Sonny.new].sample
     self.name = cpu.name
   end
 
@@ -108,6 +98,37 @@ class R2D2 < Computer
   def initialize
     @name = 'R2D2'
     @options = ['rock']
+  end
+end
+
+class Hal < Computer
+  def initialize
+    @name = 'Hal'
+    @options = ['rock', 'scissors', 'scissors', 'scissors']
+  end
+end
+
+class Chappie < Computer
+  def initialize
+    @name = 'Chappie'
+    @options = ['lizard', 'spock']
+  end
+end
+
+class Sonny < Computer
+  def initialize
+    @name = 'Sonny'
+    @options = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+  end
+end
+
+def class_chooser(choice)
+  case choice
+  when 'rock' then Rock.new
+  when 'paper' then Paper.new
+  when 'scissors' then Scissors.new
+  when 'lizard' then Lizard.new
+  when 'spock' then Spock.new
   end
 end
 
@@ -148,11 +169,12 @@ class RPSGame
     puts "\n--| #{str} SCORE |--"
     puts "\n#{human.name}: #{human.score}"
     puts "#{computer.name}: #{computer.score}"
-    sleep(3)
-    clear
+    sleep(1.5)
+    # clear
   end
 
   def display_moves
+    clear
     puts "\n#{human.name} chose: #{human.move}"
     puts "#{computer.name} chose: #{computer.move}"
     game_history.add_game(human.move, computer.move)
@@ -177,7 +199,7 @@ class RPSGame
   def play_again?
     answer = nil
     loop do
-      puts "Would you like to play again? (y/n)"
+      puts "\nWould you like to play again? (y/n)"
       answer = gets.chomp
       break if ['y', 'n'].include?(answer)
       puts "Sorry, must be y or n"
@@ -203,6 +225,7 @@ class RPSGame
   def wipe_scores
     human.score = 0
     computer.score = 0
+    game_history.history.clear
   end
 
   def display_game_winner(str)
@@ -217,6 +240,17 @@ class RPSGame
     end
   end
 
+  def display_game_history?
+    answer = ''
+    puts "\nWould you like to see the game history? (y/n)"
+    loop do
+      answer = gets.chomp
+      break if ['y', 'n'].include?(answer)
+      puts "Invalid input, please just enter 'y' or 'n'"
+    end
+    game_history.display_games if answer == 'y'
+  end
+
   def play
     display_welcome_message
     game_starter
@@ -229,7 +263,7 @@ class RPSGame
         display_winner
         break if game_won?
         display_score('CURRENT')
-        game_history.display_games
+        display_game_history?
       end
       display_game_winner('FINAL')
       break unless play_again?
@@ -239,20 +273,21 @@ class RPSGame
 end
 
 class Game_history
+  attr_reader :history
+
   def initialize
     @history = []
   end
 
   def add_game(human_move, comp_move)
-    @history << [human_move.name, comp_move.name]
+    history << [human_move.name, comp_move.name]
   end
 
   def display_games
-    @history.each_with_index do |moves, idx|
-      puts "Round #{idx + 1}"
+    history.each_with_index do |moves, idx|
+      puts "\nRound #{idx + 1}"
       puts "You chose: #{moves.first}"
       puts "Computer chose: #{moves.last}"
-      puts
     end
   end
 end
