@@ -190,36 +190,6 @@ def totals(players_cards, dealers_cards)
   [player_total, dealer_total]
 end
 
-players_cards = []
-dealers_cards = []
-scoreboard = { player: 0, dealer: 0 }
-
-def play_game(players_cards, dealers_cards, scoreboard)
-  opening_messages
-  loop do
-    reset_score(scoreboard)
-    main_game_loop(players_cards, dealers_cards, scoreboard)
-    display_champion(scoreboard)
-    break unless yes_no_question("\nWould you like to play again(y/n)?")
-  end
-  goodbye_message
-end
-
-def main_game_loop(players_cards, dealers_cards, scoreboard)
-  loop do
-    deck = initialize_deck
-    clear
-    reset_variables(players_cards, dealers_cards)
-    deal_cards(deck, players_cards, dealers_cards)
-    result = players_turn(deck, players_cards, dealers_cards, scoreboard)
-    dealers_turn(deck, players_cards, dealers_cards, scoreboard) if result == :s
-    player_total, dealer_total = totals(players_cards, dealers_cards)
-    record_score(scoreboard, player_total, dealer_total)
-    display_outcome(player_total, dealer_total)
-    break if game_won?(scoreboard)
-  end
-end
-
 def goodbye_message
   clear
   puts "Thanks for playing 21"
@@ -312,6 +282,36 @@ def stick_message(player_total, dealer_total)
   sleep(1.5)
   clear
   alt_loading unless dealer_total > DEALER_GOAL
+end
+
+def main_game_loop(players_cards, dealers_cards, scoreboard)
+  loop do
+    deck = initialize_deck
+    clear
+    reset_variables(players_cards, dealers_cards)
+    deal_cards(deck, players_cards, dealers_cards)
+    result = players_turn(deck, players_cards, dealers_cards, scoreboard)
+    dealers_turn(deck, players_cards, dealers_cards, scoreboard) if result == :s
+    player_total, dealer_total = totals(players_cards, dealers_cards)
+    record_score(scoreboard, player_total, dealer_total)
+    display_outcome(player_total, dealer_total)
+    break if game_won?(scoreboard)
+  end
+end
+
+players_cards = []
+dealers_cards = []
+scoreboard = { player: 0, dealer: 0 }
+
+def play_game(players_cards, dealers_cards, scoreboard)
+  opening_messages
+  loop do
+    reset_score(scoreboard)
+    main_game_loop(players_cards, dealers_cards, scoreboard)
+    display_champion(scoreboard)
+    break unless yes_no_question("\nWould you like to play again(y/n)?")
+  end
+  goodbye_message
 end
 
 play_game(players_cards, dealers_cards, scoreboard)
