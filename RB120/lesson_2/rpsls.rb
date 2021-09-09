@@ -123,9 +123,8 @@ module Displayable
     computer_score = "#{computer.name}: #{computer.score}"
     length = ((human_score.size + computer_score.size) + 2)
     display_score_banner(length)
-    puts
-    puts human_score + '  ' + computer_score.rjust(human_score.size - length)
-    puts
+    puts "\n" + human_score + '  ' + \
+         computer_score.rjust(human_score.size - length) + "\n"
   end
   # rubocop:enable Metrics/AbcSize
 
