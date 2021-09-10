@@ -332,7 +332,3 @@ end
 
 game = TTTGame.new
 game.play
-
-# need to implement AI defense
-# - so we can do this through finding another way to analise the squares
-# - so how can we get the squares back that we need
