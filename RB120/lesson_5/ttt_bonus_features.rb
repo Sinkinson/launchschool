@@ -1,3 +1,5 @@
+require 'pry'
+
 module Formattable
   def clear
     system "clear"
@@ -84,6 +86,31 @@ class Board
 
   def someone_won?
     !!winning_marker
+  end
+
+  def human_on_two_squares?(markers)
+    markers.count('X') == 2 && markers.count(" ") == 1
+  end
+
+  def get_markers(line)
+    @squares.values_at(*line).map(&:marker)
+  end
+
+  def defensive_move_possible
+    WINNING_LINES.each do |line|
+      return true if human_on_two_squares?(get_markers(line))
+    end
+    false
+  end
+
+  def find_at_risk_square
+    WINNING_LINES.each do |line|
+      squares = @squares.values_at(*line)
+      if human_on_two_squares?(get_markers(line))
+        empty_square = squares.select(&:unmarked?)[0]
+        return @squares.key(empty_square)
+      end
+    end
   end
 
   def winning_marker
@@ -257,12 +284,15 @@ class TTTGame
       break if board.unmarked_keys.include?(square)
       puts "Sorry, that's not a valid choice."
     end
-
     board[square] = human.marker
   end
 
   def computer_moves
-    board[board.unmarked_keys.sample] = computer.marker
+    if board.defensive_move_possible
+      board[board.find_at_risk_square] = computer.marker 
+    else
+      board[board.unmarked_keys.sample] = computer.marker
+    end
   end
 
   def current_player_moves
@@ -303,7 +333,6 @@ end
 game = TTTGame.new
 game.play
 
-
 # need to implement AI defense
-- so we can do this through finding another way to analise the squares
-- so how can we get the squares back that we need
+# - so we can do this through finding another way to analise the squares
+# - so how can we get the squares back that we need
