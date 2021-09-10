@@ -88,25 +88,27 @@ class Board
     !!winning_marker
   end
 
-  def human_on_two_squares?(markers)
-    markers.count('X') == 2 && markers.count(" ") == 1
+  def two_squares_taken?(markers, player_mark)
+    markers.count(player_mark) == 2 && markers.count(" ") == 1
   end
 
   def get_markers(line)
     @squares.values_at(*line).map(&:marker)
   end
 
-  def defensive_move_possible
+  def move_possible?(player_marker)
     WINNING_LINES.each do |line|
-      return true if human_on_two_squares?(get_markers(line))
+      if two_squares_taken?(get_markers(line), player_marker)
+        return true
+      end
     end
     false
   end
 
-  def find_at_risk_square
+  def find_empty_square(player_marker)
     WINNING_LINES.each do |line|
       squares = @squares.values_at(*line)
-      if human_on_two_squares?(get_markers(line))
+      if two_squares_taken?(get_markers(line), player_marker)
         empty_square = squares.select(&:unmarked?)[0]
         return @squares.key(empty_square)
       end
@@ -288,11 +290,23 @@ class TTTGame
   end
 
   def computer_moves
-    if board.defensive_move_possible
-      board[board.find_at_risk_square] = computer.marker 
+    if board.move_possible?(COMPUTER_MARKER)
+      attack!
+    elsif board.move_possible?(HUMAN_MARKER)
+      defend!
     else
       board[board.unmarked_keys.sample] = computer.marker
     end
+  end
+
+  def attack!
+    square = board.find_empty_square(COMPUTER_MARKER)
+    board[square] = computer.marker
+  end
+
+  def defend!
+    square = board.find_empty_square(HUMAN_MARKER)
+    board[square] = computer.marker
   end
 
   def current_player_moves
