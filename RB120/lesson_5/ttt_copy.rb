@@ -1,6 +1,12 @@
+require 'pry'
+
 module Formattable
   def clear
     system "clear"
+  end
+
+  def break_line(size)
+    puts '-' * size
   end
 
   def loading
@@ -9,13 +15,7 @@ module Formattable
     puts '..'
     sleep(0.5)
     puts '...'
-    sleep(0.5)
-  end
-
-  def break_line(msg, size)
-    puts '-' * size
-    puts msg
-    puts '-' * size
+    sleep(0.2)
   end
 
   def joinor(arr, delimiter=', ', word='or')
@@ -29,26 +29,13 @@ module Formattable
   end
 end
 
-module Questionable
-  YES_NO_OPTIONS = ['yes', 'no', 'y', 'n']
-
-  def yes_no_question(question)
-    puts '', question
-    answer = ''
-    loop do
-      answer = gets.chomp.downcase
-      break if YES_NO_OPTIONS.include? answer
-      puts "Please just enter one of the following options: #{YES_NO_OPTIONS}"
-    end
-    answer == 'y' || answer == 'yes'
-  end
-end
-
 module Displayable
   include Formattable
 
   def display_welcome_message
-    break_line("Welcome to Tic Tac Toe!", 23)
+    break_line(23)
+    puts "Welcome to Tic Tac Toe!"
+    break_line(23)
     puts "-> Your symbol: #{human.marker}"
     puts "-> Computer symbol: #{computer.marker}\n"
   end
@@ -80,21 +67,6 @@ module Displayable
   def display_play_again_message
     puts "Let's play again!"
     puts ""
-  end
-
-  def display_computer_choosing
-    clear
-    puts "Computer deciding who moves first"
-    loading
-  end
-
-  def display_computer_choice(computer_choice)
-    if computer_choice == TTTGame::HUMAN_MARKER
-      break_line("YOU WILL GO FIRST", 17)
-    else
-      break_line("COMPUTER WILL GO FIRST", 22)
-    end
-    game_starter
   end
 end
 
@@ -231,7 +203,6 @@ end
 class TTTGame
   include Displayable
   include Formattable
-  include Questionable
 
   HUMAN_MARKER = "X"
   COMPUTER_MARKER = "O"
@@ -261,35 +232,69 @@ class TTTGame
 
   private
 
-  def game_starter
-    puts "Press enter to start the game"
-    STDIN.gets
-  end
-
   def set_first_to_move(marker)
     FIRST_TO_MOVE.replace(marker)
+    sleep(2)
   end
 
-  def choose_first_mover
-    if yes_no_question("Do you want to decide who starts the game? (y/n)")
-      player_chooses_first_mover
-    else
-      computer_chooses_first_mover
+  YES_NO_OPTIONS = ['yes', 'no', 'y', 'n']
+
+  def yes_no_question(question)
+    puts question
+    answer = ''
+    loop do
+      answer = gets.chomp.downcase
+      break if YES_NO_OPTIONS.include? answer
+      puts "Please just enter one of the following options: #{YES_NO_OPTIONS}"
     end
+    answer == 'y' || answer == 'yes'
   end
 
   def player_chooses_first_mover
-    if yes_no_question("Type Y to go first. Type N to go second")
+    if yes_no_question("Would you like to make the first move? (y/n)")
       set_first_to_move(HUMAN_MARKER)
     else
       set_first_to_move(COMPUTER_MARKER)
     end
   end
 
+  def player_chooses_first_mover
+    answer = ''
+    puts "Would you like to make the first move? (y/n)"
+    loop do
+      answer = gets.chomp.downcase
+      break if %w(y n).include? answer
+      puts "Please just enter y or n"
+    end
+    choice = answer == 'n' ? COMPUTER_MARKER : HUMAN_MARKER
+    set_first_to_move(choice)
+  end
+
+  def choose_first_mover
+    answer = ''
+    puts "Do you want to decide who starts the game? (y/n)"
+    loop do
+      answer = gets.chomp.downcase
+      break if %w(y n).include? answer
+      puts "Please just enter y or n"
+    end
+    if answer == 'y'
+      player_chooses_first_mover
+    else
+      computer_chooses_first_mover
+    end
+  end
+
   def computer_chooses_first_mover
-    display_computer_choosing
+    clear
+    puts "Computer deciding"
+    loading
     computer_choice = [COMPUTER_MARKER, HUMAN_MARKER].sample
-    display_computer_choice(computer_choice)
+    if computer_choice == HUMAN_MARKER
+      puts "Computer has chosen you to go first"
+    else
+      puts "Computer wants to make the first move"
+    end
     set_first_to_move(computer_choice)
   end
 
@@ -320,8 +325,15 @@ class TTTGame
   end
 
   def display_score
-    break_line("SCOREBOARD".center(17), 17)
+    break_line(17)
+    puts "SCOREBOARD".center(17)
+    break_line(17)
     puts "You: #{human.score} Computer: #{computer.score}", ''
+  end
+
+  def game_starter
+    puts "\nPress enter when you are ready to start the game"
+    STDIN.gets
   end
 
   def game_won?
@@ -330,14 +342,14 @@ class TTTGame
 
   def display_champion
     if human.score == 3
-      break_line("~*~ YOU ARE THE CHAMPION ~*~", 28)
+      puts "~*~ YOU ARE THE CHAMPION ~*~"
     else
-      break_line("Unlucky, computer is the champion", 33)
+      puts "Hard luck, computer is the champion"
     end
   end
 
   def next_round
-    break_line("Press enter to start the next round", 35) 
+    puts "Press enter to start the next round"
     STDIN.gets
   end
 
