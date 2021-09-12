@@ -76,6 +76,10 @@ class Board
     @squares[num].marker = marker
   end
 
+  def [](num)
+    @squares[num].marker
+  end
+
   def unmarked_keys
     @squares.keys.select { |key| @squares[key].unmarked? }
   end
@@ -294,6 +298,8 @@ class TTTGame
       attack!
     elsif board.move_possible?(HUMAN_MARKER)
       defend!
+    elsif board[5] == Square::INITIAL_MARKER
+      board[5] = computer.marker
     else
       board[board.unmarked_keys.sample] = computer.marker
     end
