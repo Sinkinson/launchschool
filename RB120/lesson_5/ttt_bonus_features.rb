@@ -198,7 +198,7 @@ class TTTGame
 
   HUMAN_MARKER = "X"
   COMPUTER_MARKER = "O"
-  FIRST_TO_MOVE = HUMAN_MARKER
+  FIRST_TO_MOVE = ''
 
   attr_reader :board, :human, :computer
 
@@ -214,6 +214,7 @@ class TTTGame
     display_welcome_message
     loop do
       reset_score
+      who_goes_first?
       main_game
       display_champion
       break unless play_again?
@@ -222,6 +223,22 @@ class TTTGame
   end
 
   private
+
+  def set_first_to_move(marker)
+    FIRST_TO_MOVE.replace(marker)
+  end
+
+  def who_goes_first?
+    answer = ''
+    puts "Would you like to make the first move? (y/n)"
+    loop do
+      answer = gets.chomp.downcase
+      break if %w(y n).include? answer
+      puts "Please just enter y or n"
+    end
+    choice = answer == 'n' ? COMPUTER_MARKER : HUMAN_MARKER
+    set_first_to_move(choice)
+  end
 
   def reset_score
     human.score = 0
