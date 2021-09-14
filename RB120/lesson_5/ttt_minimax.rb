@@ -171,7 +171,7 @@ module Displayable
   def display_names
     clear
     puts "Hi #{human.name}! You are going to play #{computer.name}"
-    sleep(2.5)
+    sleep(2.2)
   end
 end
 
