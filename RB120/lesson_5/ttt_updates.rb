@@ -1,4 +1,7 @@
+require 'pry'
+
 module Minimax
+  # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
   def find_best_move(board, player)
     best_score = -1000
@@ -14,29 +17,33 @@ module Minimax
     end
     best_move
   end
-  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def min_max(board, player, depth)
     return score(board) if board.someone_won? || board.full?
     scores = []
 
     if player == :Maxi
-      score_positions(board, :Mini, computer.marker, scores, depth)
+      board.unmarked_keys.each do |move|
+        board[move] = computer.marker
+        score = min_max(board, :Mini, depth + 1)
+        scores << score
+        board[move] = " "
+      end
     elsif player == :Mini
-      score_positions(board, :Maxi, human.marker, scores, depth)
+      board.unmarked_keys.each do |move|
+        board[move] = human.marker
+        score = min_max(board, :Maxi, depth + 1)
+        scores << score
+        board[move] = " "
+      end
     end
 
     player == :Maxi ? scores.max - depth : scores.min + depth
   end
-
-  def score_positions(board, mini_or_maxi, marker, scores, depth)
-    board.unmarked_keys.each do |move|
-      board[move] = marker
-      score = min_max(board, mini_or_maxi, depth + 1)
-      scores << score
-      board[move] = " "
-    end
-  end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   def score(board)
     case board.winning_marker
