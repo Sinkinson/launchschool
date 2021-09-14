@@ -168,9 +168,14 @@ module Displayable
   def display_opening_messages
     clear
     display_welcome_message
+    display_amount_to_win
     choose_marker_type
     define_names
     display_names
+  end
+
+  def display_amount_to_win
+    break_line("You need to win 3 games to become champion")
   end
 
   def display_names
@@ -318,10 +323,19 @@ class TTTGame
 
   def define_names
     clear
-    puts "What's your name?"
-    answer = gets.chomp.capitalize
-    human.name = answer
+    ask_for_users_name
     computer.name = ['Wall-E', 'Terminator', 'Spark'].sample
+  end
+
+  def ask_for_users_name
+    puts "What's your name?"
+    answer = ''
+    loop do
+      answer = gets.chomp.strip
+      break unless answer.empty?
+      puts "Please enter a name"
+    end
+    human.name = answer.capitalize
   end
 
   def choose_marker_type
@@ -422,11 +436,16 @@ class TTTGame
     puts "Choose a square (#{joinor(board.unmarked_keys)}): "
     square = nil
     loop do
-      square = gets.chomp.to_i
+      square = gets.chomp
+      square = valid_integer(square)
       break if board.unmarked_keys.include?(square)
       puts "Sorry, that's not a valid choice."
     end
     board[square] = human.marker
+  end
+
+  def valid_integer(square)
+    square.to_i.to_s == square ? square.to_i : nil
   end
 
   def computer_moves
