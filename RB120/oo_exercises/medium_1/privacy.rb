@@ -36,13 +36,6 @@ class Machine
   end
 end
 
-cpu = Machine.new
-
-cpu.start
-puts cpu.switch
-cpu.stop
-puts cpu.switch
-
 # Futher exploration: add a private getter for @switch to the machine class, and add a method to Machine that shows how to use that getter
 
 class Machine
