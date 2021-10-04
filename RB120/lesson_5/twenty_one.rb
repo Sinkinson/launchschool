@@ -13,7 +13,7 @@ module Formattable
 
   def game_starter
     puts '', "Press enter to start the game"
-    STDIN.gets 
+    STDIN.gets
   end
 
   def yes_no?(question)
@@ -22,7 +22,7 @@ module Formattable
     loop do
       answer = gets.chomp.downcase
       break if OPTIONS.include?(answer)
-      puts "Invalid input, please enter one of the following options: #{OPTIONS}"
+      puts "Please enter one of the following options: #{OPTIONS}"
     end
     answer == 'y' || answer == 'yes'
   end
@@ -85,6 +85,7 @@ module Displayable
     user.cards.map { |card| card.rank.to_s + card.suit }
   end
 
+  # rubocop:disable Metrics/AbcSize
   def display_hidden_hand
     cards = format_cards(dealer)[0...-1]
     puts cards.map { |card| '+' + '-' * card.size + '+' }.join(' ') + ' +---+'
@@ -97,9 +98,30 @@ module Displayable
     puts cards.map { |card| '|' + card + '|' }.join(' ')
     puts cards.map { |card| '+' + '-' * card.size + '+' }.join(' ')
   end
+  # rubocop:enable Metrics/AbcSize
 
   def display_dealer_total
     puts "Dealer total: #{dealer.total}"
+  end
+
+  def display_outcomes
+    if player.busted?
+      break_line("You went bust, dealer wins")
+    elsif dealer.busted?
+      break_line("Dealer went bust, you win")
+    else
+      display_total_comparisons
+    end
+  end
+
+  def display_total_comparisons
+    if dealer > player
+      break_line("Dealer closer to 21, dealer wins")
+    elsif player > dealer
+      break_line("You are closer to 21, you win")
+    else
+      break_line("It's a tie")
+    end
   end
 end
 
@@ -141,7 +163,7 @@ class Participant
   def rank_convertor
     @cards.map do |card|
       case card.rank
-      when *['J', 'Q', 'K'] then 10
+      when 'J', 'Q', 'K' then 10
       when 'A' then 11
       else card.rank
       end
@@ -229,7 +251,7 @@ class Game
   def player_turn
     loop do
       answer = hit_or_stick
-      answer == 'hit' ?  player.hit(deck) : break
+      answer == 'hit' ? player.hit(deck) : break
       display_dealing_msg
       display_cards(true)
       break if player.busted?
@@ -255,18 +277,8 @@ class Game
 
   def show_result
     display_dealer_total unless player.busted?
-    if player.busted?
-      break_line("You went bust, dealer wins")
-    elsif dealer.busted?
-      break_line("Dealer went bust, you win")
-    elsif dealer > player
-      break_line("Dealer closer to 21, dealer wins")
-    elsif player > dealer
-      break_line("You are closer to 21, you win")
-    else
-      break_line("It's a tie")
-    end
-  end  
+    display_outcomes
+  end
 end
 
 Game.new.start
