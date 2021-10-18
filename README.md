@@ -16,5 +16,5 @@ This repo contains all the coursework for launchschool.
 |Lesson|Problem set|
 |:---|:---|
 |[Lesson 2](https://github.com/Sinkinson/launchschool/tree/main/RB120/lesson_2)|[Classes and objects](https://github.com/Sinkinson/launchschool/tree/main/RB120/lesson_2/classes_and_objects)||
-|[Lesson 4](https://github.com/Sinkinson/launchschool/tree/main/RB120/lesson_4)|[OOP exercises(https://github.com/Sinkinson/launchschool/tree/main/RB120/oo_exercises)||
+|[Lesson 4](https://github.com/Sinkinson/launchschool/tree/main/RB120/lesson_4)|[OOP exercises](https://github.com/Sinkinson/launchschool/tree/main/RB120/oo_exercises)||
 |[Lesson 5](https://github.com/Sinkinson/launchschool/tree/main/RB120/lesson_5)||
