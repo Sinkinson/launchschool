@@ -1,6 +1,4 @@
-![image](https://cdn-images-1.medium.com/max/602/1*qdrgyjHB7qYXCZxBY1MogA@2x.jpeg)
-
-## About ##
+![image](https://pbs.twimg.com/media/FBzfwQ5WQAAtG45.jpg)
 
 This repo contains all the lessons and exercises for launchschool.
 
