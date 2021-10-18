@@ -1,4 +1,5 @@
-[![image](http://www.https://launchschool.com/)](https://cdn-images-1.medium.com/max/602/1*qdrgyjHB7qYXCZxBY1MogA@2x.jpeg)
+[![image](https://cdn-images-1.medium.com/max/602/1*qdrgyjHB7qYXCZxBY1MogA@2x.jpeg)](http://www.https://launchschool.com/)
+
 
 ## RB 101-109 ##
 
