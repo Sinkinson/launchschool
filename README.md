@@ -1,6 +1,6 @@
 ## About ##
 
-This repo contains all the coursework for launchschool.
+This repo contains all the lessons and exercises for launchschool.
 
 ## RB 101-109 ##
 
