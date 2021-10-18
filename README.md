@@ -1,4 +1,4 @@
-![image](https://pbs.twimg.com/media/FBzfwQ5WQAAtG45.jpg)
+![image](https://external-preview.redd.it/g96gR-Dq5MuwJ4XH3o8jbNk2OX8ecPxqUfRnIAVj-Ho.jpg?auto=webp&s=c62954f231138931cb659658f8ce0bc8523f18b1)
 
 This repo contains all the lessons and exercises for launchschool.
 
