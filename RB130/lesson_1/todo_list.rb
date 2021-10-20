@@ -123,7 +123,7 @@ class TodoList
   end
 
   # takes a string as argument, and returns the first Todo object that matches the argument. Return nil if no todo is found.
-  def find_by_title(str)
+  def find_by_title(title)
     select { |todo| todo.title == title }.first
   end
 
