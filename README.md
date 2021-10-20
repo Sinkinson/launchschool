@@ -21,7 +21,7 @@
 * [Classes and objects](https://github.com/Sinkinson/launchschool/tree/main/RB120/lesson_2/classes_and_objects)
 * [OOP exercises](https://github.com/Sinkinson/launchschool/tree/main/RB120/oo_exercises)
 
-### RB 130 ###
+## RB 130 ##
   
 * [Lesson 1](https://github.com/Sinkinson/launchschool/tree/main/RB130/lesson_1)
 * [Lesson 2](https://github.com/Sinkinson/launchschool/tree/main/RB130/lesson_2)
