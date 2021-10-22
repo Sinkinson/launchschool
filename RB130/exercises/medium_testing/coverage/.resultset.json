@@ -1,0 +1,40 @@
+{
+  "Minitest": {
+    "coverage": {
+      "/Users/marcussinkinson/Repos/launchschool/RB130/exercises/medium_testing/transaction.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1634894063
+  }
+}
