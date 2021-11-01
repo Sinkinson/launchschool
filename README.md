@@ -1,4 +1,4 @@
-[Launchschool](https://launchschool.com)
+More information can be found at [Launchschool](https://launchschool.com)
 
 ## RB 101-109 ##
 
