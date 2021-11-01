@@ -40,4 +40,19 @@ end
 
 base8_proc = method(:convert_to_base_8).to_proc
 
+[8, 10, 12, 14, 16, 33].map(&base8_proc) # => [10, 12, 14, 16, 20, 41]
 
+# notice the convert_to_base_8 method takes a number like argument -- n
+# we pass method an existing method as a symbol and it gets wrapped up as a method object.
+# this is how the implementation ends up looking
+def convert_to_base_8(n)
+  n.to_s(8).to_i
+end
+
+# ->
+
+Proc.new { |n| n.to_s(8).to_i }
+#when we use & to convert our Proc to a block, it expands out to...
+
+# ->
+[8, 10, 12, 14, 16, 33].map { |n| n.to_s(8).to_i }
