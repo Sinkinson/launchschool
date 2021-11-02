@@ -40,38 +40,6 @@
 # = 128   + 24    + 3
 # = 155
 
-=begin
-problem
-- take an octal input string and produce a decimal output (natural number)
-- create an octal class that takes a string that represents an octal
-- create a to_decimal class that converts this octal into a decimal (so base 10 number)
-
-rules
-- number should only include digits in this range [0-7]
-  - return 0 if they include something that isn't in this range
-
-examples
-- 155 octal is 109 decimal
-
-data
-- strings
-- integers
-- arrays
-
-algo
-- create octal class
-  - have an instance variable that takes a string
-- we need to see if the number is valid. If it includes anything outside of [0-7] then we return 0
-- create a to_decimal method
-  - convert the string into an integer
-  - use divmod(10) on the number, save first number to remainder and the second to digit
-  - we need access to each digit so we could use the method above but it actuall might be easier to just create an array
-    and then iterate through that array
-  - we multiply the number according to the index
-  - then we sum the total and return it
-
-=end
-
 class Octal
   attr_reader :number
 
