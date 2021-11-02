@@ -1,7 +1,4 @@
-<p align="center">
-  <a href="https://www.launchschool.com">
-  <img src="https://cdn-images-1.medium.com/max/602/1*qdrgyjHB7qYXCZxBY1MogA@2x.jpeg" alt=""/>
-</p>
+More information can be found at [Launchschool](https://launchschool.com)
 
 ## RB 101-109 ##
 
