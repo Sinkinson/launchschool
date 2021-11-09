@@ -22,3 +22,5 @@ More information can be found at [Launchschool](https://launchschool.com)
   
 * [Lesson 1](https://github.com/Sinkinson/launchschool/tree/main/RB130/lesson_1)
 * [Lesson 2](https://github.com/Sinkinson/launchschool/tree/main/RB130/lesson_2)
+* [Exercises](https://github.com/Sinkinson/launchschool/tree/main/RB130/exercises)
+* [Challenges](https://github.com/Sinkinson/launchschool/tree/main/RB130/challenges)
