@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Larger form</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./main.css">
+  </head>
+  
+  <body>
+    <form action="#" class="styled-form top-to-bottom">
+      <fieldset>
+        <dl>
+          <dt><label for="name">Name</label></dt>
+          <dt><input type="text" id="name"></dt>
+        </dl>
+
+        <dl class="address">
+          <dt><label for="address1">Address</label></dt>
+          <dd>
+            <input type="text" id="address1">
+            <input type="text" id="address2">
+          </dd>
+        </dl>
+
+        <dl class="city partial">
+          <dt><label for="city">City</label></dt>
+          <dd><input type="text" id="city"></dd>
+        </dl>
+
+        <dl class="state partial">
+          <dt><label for="state">State</label></dt>
+          <dd>
+            <select id="state">
+              <option>AK</option>
+              <option>AL</option>
+            </select>
+          </dd>
+        </dl>
+
+        <dl class="zipcode partial">
+          <dt><label for="zipcode">Zip</label></dt>
+          <dd><input type="text" id="zipcode"></dd>
+        </dl>
+      </fieldset>
+    </form>
+  </body>
+</html>
