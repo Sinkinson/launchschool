@@ -1,0 +1,69 @@
+html, body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.contact-form {
+  background-color: rgba(211, 211, 211, 0.3);
+}
+
+.color-choice dt,
+.color-choice dd {
+  display: inline-block;
+}
+
+.web-technologies dt,
+.web-technologies dd {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.first_name dt,
+.first_name dd {
+  display: inline-block;
+}
+
+dd {
+  width: 50%;
+}
+
+input[type="text"],
+input[type="email"] {
+  width: 30%;
+}
+
+dl {
+  font-size: 0;
+  padding: 10px 0;
+}
+
+dt, dd {
+  font-size: 1rem;
+  display: inline-block
+}
+
+dt {
+  width: 15%;
+}
+
+.web-technologies select {
+  width: 120px;
+}
+
+.comments dt,
+.comments dd {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.final_buttons input {
+  color: white;
+  background-color: black;
+}
+
+.contact-form input,
+.contact-form textarea
+.contact-form select {
+  border-radius: 2px;
+  padding: 5px;
+  display: border-box;
+}
