@@ -1,0 +1,30 @@
+<dl class="email">
+  <dt>Email:</dt>
+  <dd><%= @users[@user][:email] %></dd>
+</dl>
+
+<dl class="interests">
+  <dt>Interests:</dt>
+  <dd>
+    <% @users[@user][:interests].each_with_index do |interest, idx| %>
+      <ul>
+        <% if idx == @users[@user][:interests].size - 1 %>
+          <li><%= interest %></li>
+        <% else %>
+          <li><%= interest %>,</li>
+        <% end %>
+      </ul>
+    <% end %>
+  </dd>
+</dl>
+
+<dl>
+  <dt>Other users</dt>
+  <dd>
+    <% @users.keys.reject { |user| user == @user }.each do |name| %>
+    <ul class="spaced-list">
+      <li><a href="/<%= name %>"><%= name %></a></li>
+    </ul>
+  </dd>
+</dl>
+<% end %>

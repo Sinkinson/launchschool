@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= @title %></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="stylesheets/main.css">
+  </head>
+  <body>
+    <header>
+      <h1><%= @title %></h1>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
+    
+    <footer>
+      <p>There are <%= @users.size %> users with a total of <%= count_interests(@users) %> interests</p>
+      <a href="/">Homepage</a>
+    </footer>
+  </body>
+</html>
