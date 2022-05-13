@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Exercise 3</title>
+    <meta charset="utf-8" />
+    <script src="./javascripts/ex3.js"></script>
+    <link rel="stylesheet" href="./stylesheets/ex3.css">
+  </head>
+  <body>
+    <button type="button" id="scheduleBtn">Add more schedules</button>
+    <div id="forms_container">
+      <div id="base_form" class="base-form">
+        <form method="POST" action="api/schedules">
+          <label for="staff">Staff Name:
+            <select id="staff" name="staff_id">
+            </select>
+          </label>
+          <label>Date: <input type="text" name="date" placeholder="mm-dd-yy"></label>
+          <label>Time: <input type="text" name="time" placeholder="hh:mm"></label>
+        </form>
+      </div>
+    </div>
+    <button type="submit" id="submitBtn">Submit</button>
+  </body>
+</html>
