@@ -1,0 +1,11 @@
+form label:first-child {
+  display: block;
+}
+
+#new_student_box label {
+  display: block;
+}
+
+#new_student_box {
+  display: none;
+}

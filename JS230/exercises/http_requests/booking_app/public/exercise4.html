@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Exercise 4</title>
+    <meta charset="utf-8" />
+    <script src="./javascripts/ex4.js"></script>
+    <link rel="stylesheet" href="./stylesheets/ex4.css">
+  </head>
+  <body>
+    <h1>Schedules</h1>
+    <form method="POST" action="/api/bookings" id="booking_form">
+      <label>Please select one schedule
+        <select id="schedule_list" name="id">
+        </select>
+      </label>
+      <label>Email <input type="email" name="student_email"></label>
+      <button type="submit" id="submitBtn">Submit</button>
+    </form>
+    <div id="new_student_box">
+      <h1>Please Provide new student details</h1>
+      <form id="new_student_form">
+        <label>Email: <input type="email" name="email"></label>
+        <label>Name: <input type="text" name="name"></label>
+        <label>Booking sequence: <input type="number" name="booking_sequence" id="booking_sequence"></label> 
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
