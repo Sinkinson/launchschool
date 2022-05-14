@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   async function main() {
     let schedules = await getSchedules();
-    let bookings = await getBookings(schedules);
+    let bookings = getBookings(schedules);
     addSchedules(schedules);
     addBookings(bookings);
     scheduleForm.addEventListener('submit', removeSchedule);
