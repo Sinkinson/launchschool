@@ -1,0 +1,8 @@
+body {
+  max-width: max-content;
+  margin: auto;
+}
+
+input {
+  display: block;
+}
