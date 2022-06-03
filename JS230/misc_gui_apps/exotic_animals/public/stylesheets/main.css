@@ -1,0 +1,21 @@
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+li {
+  height: 300px;
+  width: 300px;
+  float: left;
+  list-style-type: none;
+  padding-right: 70px;
+}
+
+#tooltip-div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, .4);
+  color: white;
+}
