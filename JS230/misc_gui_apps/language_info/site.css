@@ -1,0 +1,22 @@
+#languages {
+  border: 2px solid black;
+  margin: 0 auto;
+  width: 30%;
+  padding: 10px;
+}
+
+h1 {
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.hide {
+  overflow: hidden;
+  line-height: 1em;
+  height: 2em;
+}
+
+.show {
+  height: auto;
+}
