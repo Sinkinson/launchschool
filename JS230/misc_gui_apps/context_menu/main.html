@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Todos</title>
+    <meta charset="utf-8" />
+    <script src="todo.js"></script>
+    <link rel="stylesheet" href="site.css">
+  </head>
+  <body>
+    <h2>Todos</h2>
+    <ul id="todos"></ul>
+    <div id="context-menu" class="hide">
+      <ul>
+        <li id="edit">Edit todo</li>
+        <li id="show-details">Show details</li>
+        <li id="delete">Delete</li>
+      </ul>
+    </div>
+    <div id="modal-layer" class="hide"></div>
+    <div id="modal" class="hide">
+      Are you sure you want to delete this todo?
+      <button type="button" value="yes" id="yesBtn">Yes</button>
+      <button type="button" value="no" id="noBtn">No</button>
+    </div>
+  </body>
+</html>
