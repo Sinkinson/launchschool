@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Text editor</title>
+    <meta charset="utf-8" />
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="site.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="text-editor">
+      <h1>Text editor</h1>
+      <div id="buttons">
+        <button class="fa fa-bold" data-id="bold"></button>
+        <button class="fa fa-italic" data-id="italic"></button>
+        <button class="fa fa-underline" data-id="underline"></button>
+        <button class="fa fa-strikethrough" data-id="strikeThrough"></button>
+        <button class="fa fa-link" data-id="createLink"></button>
+        <button class="fa fa-list" data-id="insertUnorderedList"></button>
+        <button class="fa fa-list-ol" data-id="insertOrderedList"></button>
+        <button class="fa fa-align-left" data-id="justifyLeft"></button>
+        <button class="fa fa-align-right" data-id="justifyRight"></button>
+        <button class="fa fa-align-center" data-id="justifyCenter"></button>
+        <button class="fa fa-align-justify" data-id="justifyFull"></button>
+      </div>
+      <div id="text-box" contenteditable="true"></div>
+    </div>
+  </body>
+</html>

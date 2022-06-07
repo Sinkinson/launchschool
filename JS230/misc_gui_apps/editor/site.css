@@ -1,0 +1,27 @@
+body {
+  position: relative;
+}
+
+#text-editor {
+  height: 400px;
+  width: 700px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+#text-box {
+  height: 100%;
+  border: 1px solid black;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+#text-box:focus {
+  outline: none;
+}
+
+button.pushed {
+  background-color: white;
+}
