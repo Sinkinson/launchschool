@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Car shop</title>
+    <meta charset="utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="site.css">
+  </head>
+  <body>
+    <h1>Buy Used cars</h1>
+    <button type="submit" id="filterBtn">filter</button>
+
+    <script id="carListTemplate" type="text/x-handlebars">
+      <ul id="carList">
+      {{#each cars}}
+      {{> carTemplate}}
+      {{/each}}
+      </ul>
+    </script>
+
+    <script id="carTemplate" type="text/x-handlebars">
+      <li>
+        <div id="image"><img src="{{image}}"></div>
+        <div>{{make}} {{model}}</div>
+        <div>Year: {{year}}</div>
+        <div>Price: {{price}}</div>
+        <button type="button">Buy</button>
+      </li>
+    </script>
+
+    <script id="selectTemplate" type="text/x-handlebars">
+      <label for="{{name}}-select">{{name}}</label>
+      <select name="{{name}}" id="{{name}}-select">
+        <option value="All">All</option>
+        {{#each options}}
+        {{> optionTemplate}}
+        {{/each}}
+      </select>
+    </script>
+
+    <script id="optionTemplate" type="text/x-handlebars">
+      <option value="{{this}}">{{this}}</option>
+    </script>
+  </body>
+</html>
