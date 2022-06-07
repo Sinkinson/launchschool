@@ -1,0 +1,21 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+li {
+  float: left;
+  padding-right: 10px;
+  list-style-type: none;
+}
+
+ul {
+  font-size: 32px;
+  margin: 0 auto;
+}
+
+#button-container {
+  clear: both;
+  margin-left: 33%;
+}
