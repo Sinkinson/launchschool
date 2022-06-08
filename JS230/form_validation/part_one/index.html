@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Form</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="site.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <h1>Sign up form</h1>
+    <form novalidate action="" method="POST">
+      <p id="errorMsg"></p>
+      <fieldset>
+        <dl>
+          <dt><label for="firstName">First Name</label></dt>
+          <dd>
+            <input type="text" name="firstName" id="firstName" required>
+            <span id="firstNameError"></span>
+          </dd>
+          <dt><label for="lastName">Last Name</label></dt>
+          <dd>
+            <input type="test" name="lastName" id="lastName" required>
+            <span id="lastNameError"></span>
+          </dd>
+          <dt><label for="email">Email</label></dt>
+          <dd>
+            <input type="email" name="email" id="email" pattern=".+@.+" required>
+            <span id="emailError"></span>
+          </dd>
+          <dt><label for="password">Password</label></dt>
+          <dd>
+            <input type="password" name="password" id="password" required>
+            <span id="passwordError"></span>
+          </dd>
+          <dt><label for="phoneNo">Phone number</label></dt>
+          <dd>
+            <input type="tel" name="phoneNo" id="phoneNo" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+          </dd>
+        </dl>
+        <button type="submit">Sign up</button>
+      </fieldset>
+    </form>
+  </body>
+</html>
