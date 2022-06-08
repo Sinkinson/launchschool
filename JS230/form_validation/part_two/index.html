@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Form</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="site.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <h1>Sign up form</h1>
+    <form novalidate action="" method="POST">
+      <p id="errorMsg"></p>
+      <fieldset>
+        <dl>
+          <dt><label for="firstName">First Name</label></dt>
+          <dd>
+            <input type="text" name="firstName" id="firstName" required pattern="[a-zA-Z]+">
+            <span id="firstNameError"></span>
+          </dd>
+          <dt><label for="lastName">Last Name</label></dt>
+          <dd>
+            <input type="test" name="lastName" id="lastName" required pattern="[a-zA-Z]+">
+            <span id="lastNameError"></span>
+          </dd>
+          <dt><label for="email">Email</label></dt>
+          <dd>
+            <input type="email" name="email" id="email" pattern=".+@.+" required>
+            <span id="emailError"></span>
+          </dd>
+          <dt><label for="password">Password</label></dt>
+          <dd>
+            <input type="password" name="password" id="password" required>
+            <span id="passwordError"></span>
+          </dd>
+          <dt><label for="phoneNo">Phone number</label></dt>
+          <dd>
+            <input type="tel" name="phoneNo" id="phoneNo" placeholder="111-222-3333" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+          </dd>
+          <dt><label for="cc_1">Credit Card</label></dt>
+          <dd>
+            <input type="text" name="creditCard" id="cc_1" maxlength="4" class="cc"> <span>-</span>
+            <input type="text" name="creditCard" id="cc_2" maxlength="4" class="cc"> <span>-</span>
+            <input type="text" name="creditCard" id="cc_3" maxlength="4" class="cc"> <span>-</span>
+            <input type="text" name="creditCard" id="cc_4" maxlength="4" class="cc">
+          </dd>
+        </dl>
+        <button type="submit">Sign up</button>
+      </fieldset>
+    </form>
+  </body>
+</html>

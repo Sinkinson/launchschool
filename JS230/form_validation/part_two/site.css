@@ -1,0 +1,22 @@
+dd {
+  margin-left: 0;
+}
+
+input {
+  outline: none;
+  margin-bottom: 3px;
+  width: 250px;
+  height: 20px;
+}
+
+input:valid {
+  border: 1px solid green;
+}
+
+input:invalid {
+  border: 1px solid red;
+}
+
+.cc {
+  width: 50px;
+}
