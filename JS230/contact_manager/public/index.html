@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact Manager</title>
+    <script src="/javascripts/handlebars.js"></script>
+    <script src="/javascripts/app.js"></script>
+    <link rel="stylesheet" href="/stylesheets/site.css">
+  </head>
+  <body>
+    <header>
+      <h1>Contact manager</h1>
+    </header>
+    <main>
+      <div id="nav_bar">
+        <button type="button" id="add_contact_btn">Add contact</button>
+        <input type="text" id="searchBar" placeholder="Search">
+      </div>
+      <div id="no_contacts_box">
+        <span>There are no contacts</span>
+        <button type="button">Add contact</button>
+      </div>
+    </main>
+
+    <script id="contact_form_template" type="text/x-handlebars">
+      <h1>{{title}}</h1>
+      <fieldset>
+        <dl>
+          <dt><label for="full_name">Full name:</label></dt>
+          <dd><input id="full_name" name="full_name" type="text" value="{{full_name}}"" required></dd>
+          <dt><label for="email">Email address:</label></dt>
+          <dd><input id="email" name="email" type="email" value="{{email}}" required></dd>
+          <dt><label for="phone_number">Telephone number:</label></dt>
+          <dd><input id="phone_number" name="phone_number" type="text" value="{{phone_number}}" required></dd>
+          <dt><label for="tags">Tags:</label></dt>
+          <dd><input id="tags" name="tags" type="text" value="{{tags}}" placeholder="work,friend"></dd>
+        </dl>
+      </fieldset>
+      <button type="submit">Submit</button>
+      <button type="button">Cancel</button>
+    </script>
+
+    <script id="contacts_list_template" type="text/x-handlebars">
+      <ul>
+      {{#each contacts}}
+      {{> single_contact_template}}
+      {{/each}}
+      </ul>
+    </script>
+
+    <script id="single_contact_template" type="text/x-handlebars">
+      <li data-id="{{id}}">
+        <h2>{{full_name}}</h2>
+        <div>Phone Number: {{phone_number}}</div>
+        <div>Email: {{email}}</div>
+        <div>Tags: {{spaceOutTags tags}}</div>
+        <button type="button">Edit</button>
+        <button type="button">Delete</button>
+      </li>
+    </script>
+
+    <script id="tags_template" type="text/x-handlebars">
+      <form>
+        <fieldset>
+          <legend>Tags</legend>
+          <label><input type="radio" name="tag" value="all">all</label>
+          {{#each tags}}
+          <label><input type="radio" name="tag" value="{{this}}">{{this}}</label>
+          {{/each}}
+        </fieldset>
+      </form>
+    </script>
+
+  </body>
+</html>

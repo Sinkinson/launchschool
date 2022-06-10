@@ -1,0 +1,47 @@
+header {
+ margin: 0 auto;
+ text-align: center;
+}
+
+main {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#no_contacts_box {
+  padding: 5px;
+}
+
+form {
+  width: 400px;
+  text-align: left;
+  margin: 0 auto;
+}
+
+dd, dt {
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+dt {
+  width: 130px;
+}
+
+dd {
+  width: 180px;
+}
+
+ul {
+  width: 700px;
+  margin: 0 auto;
+}
+
+ul li {
+  list-style-type: none;
+  display: inline;
+  float: left;
+  text-align: left;
+  margin: 10px;
+}
