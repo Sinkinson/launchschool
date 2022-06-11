@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Programming Languages</title>
+    <meta charset="utf-8" />
+    <script type="module" src="controller.js"></script>
+    <script src="handlebars.js"></script>
+    <link rel="stylesheet" href="./site.css">
+  </head>
+  <body>
+    <main id="root"></main>
+
+    <script id="languagesTemplate" type="text/x-handlebars">
+      <ul>
+        <li>
+          {{#each languages}}
+          {{> singleLanguageTemplate}}
+          {{/each}}
+        </li>
+      </ul>
+    </script>
+
+    <script id="singleLanguageTemplate" type="text/x-handlebars">
+      <h2>{{name}}</h2>
+      <p>{{description}}</p>
+      <button type="button" id="{{name}}">Show more</button>
+    </script>
+  </body>
+</html>
