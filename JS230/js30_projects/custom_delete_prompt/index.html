@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Todos</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="site.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <h1>Todos</h1>
+    <main id="root"></main>
+
+    <script id="todoListTemplate" type="text/x-handlebars">
+      <dl>
+        {{#each todos}}
+        {{> todoTemplate}}
+        {{/each}}
+      </dl>
+    </script>
+
+    <script id="todoTemplate" type="text/x-handlebars">
+      <dt>{{title}}</dt>
+      <dd><button type="button" data-id="{{id}}">Delete</button></dd>
+    </script>
+
+    <script id="confirmationPromptTemplate" type="text/x-handlebars">
+      <div id="modal">
+        <p>Are you sure you want to delete this todo?</p>
+        <button type="button" id="yes">Yes</button>
+        <button type="button" id="no">No</button>
+      </div>
+    </script>
+
+  </body>
+</html>
