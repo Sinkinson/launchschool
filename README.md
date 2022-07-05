@@ -26,3 +26,9 @@ More information can be found at [Launchschool](https://launchschool.com)
 * [Challenges](https://github.com/Sinkinson/launchschool/tree/main/RB130/challenges)
 
 ## RB 175
+
+* [Dynamic Directory](https://github.com/Sinkinson/launchschool/tree/main/RB175/dynamic_directory)
+* [Echo Server](https://github.com/Sinkinson/launchschool/tree/main/RB175/echo_server)
+* [My Framework](https://github.com/Sinkinson/launchschool/tree/main/RB175/my_framework)
+* [Users and Interests](https://github.com/Sinkinson/launchschool/tree/main/RB175/users_and_interests)
+
